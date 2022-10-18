@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Класс хуйни
+ * 
  */
 public interface UserType{
     public String typeName();			// Имя типа
