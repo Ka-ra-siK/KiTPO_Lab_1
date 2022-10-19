@@ -15,7 +15,7 @@ public class PointUserType implements UserType{
 
     @Override
     public String typeName() {
-        return "2D Point";
+        return "Point";
     }
 
     @Override

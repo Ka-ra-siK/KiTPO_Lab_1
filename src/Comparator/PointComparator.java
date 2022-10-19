@@ -19,7 +19,7 @@ public class PointComparator implements Comparator{
             return firstX - secondX;
         }
         if (firstY != secondY) {
-            return firstX - secondX;
+            return firstY - secondY;
         }
         return 0;
     }

@@ -1,23 +1,25 @@
+package Factory;
+
 import Types.Users.FloatUserType;
 import Types.Users.PointUserType;
 import Types.Users.UserType;
 
 import java.util.ArrayList;
-//TODO Додлеать фабрику
 
 public class UserFactory {
     public ArrayList<String> getTypeNameList() {
-        return null;
+        ArrayList<String> typeNameList = new ArrayList<>();
+        typeNameList.add("Float");
+        typeNameList.add("Point");
+        return typeNameList;
     }
 
     public UserType getBuilderByName(String name) {
-        switch(name) {
-            case "Float":
-            {
+        switch (name) {
+            case "Float": {
                 return new FloatUserType();
             }
-            case "2D Point":
-            {
+            case "Point": {
                 return new PointUserType();
             }
             default:
