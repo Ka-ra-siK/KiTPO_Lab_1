@@ -44,7 +44,6 @@ public class PointUserType implements UserType{
 
     @Override
     public Object parseValue(String pointString) {
-        //TODO дописать парсер
         return Float.parseFloat(pointString);
     }
 

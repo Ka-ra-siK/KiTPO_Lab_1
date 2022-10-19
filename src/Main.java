@@ -18,7 +18,7 @@ public class Main {
         cycleList.add(floatUserType.create());
         cycleList.add(floatUserType.create());
         cycleList.printList();
-        cycleList.sort(floatUserType.getTypeComparator());
+        //cycleList.sort(floatUserType.getTypeComparator());
         System.out.println();
         cycleList.printList();
 
