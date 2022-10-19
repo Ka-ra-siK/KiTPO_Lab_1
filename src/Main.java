@@ -14,8 +14,9 @@ public class Main {
         cycleList.add(2.0);
         cycleList.add(3.0);
         cycleList.add(4.0);
-
         cycleList.remove(0);
+
+        //cycleList.remove(0);
         System.out.println("It Works!");
     }
 }

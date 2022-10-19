@@ -1,9 +1,6 @@
 package CycleList;
 
 import Comparator.Comparator;
-//TODO подправить вставка по индексу
-//TODO подправить удаление
-//TODO подправить обычную вставку - предыдуший головы
 public class CycleList {
 
     private Node head;
@@ -22,6 +19,7 @@ public class CycleList {
         tail.next = newNode;
         tail = newNode;
         tail.next = head;
+        head.prev = tail;
         length++;
     }
 
@@ -36,6 +34,8 @@ public class CycleList {
         }
         newNode.next = tmp;
         tmp.prev = newNode;
+        tail.next = head;
+        head.prev = tail;
         length++;
     }
 
@@ -56,6 +56,8 @@ public class CycleList {
             tail = tmp.prev;
         }
         tmp.next = tmp.prev = null;
+        tail.next = head;
+        head.prev = tail;
         length--;
     }
 
