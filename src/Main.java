@@ -10,11 +10,17 @@ public class Main {
         FloatUserType floatUserType = new FloatUserType();
 
         CycleList cycleList = new CycleList();
-        cycleList.add(1.0);
-        cycleList.add(2.0);
-        cycleList.add(3.0);
-        cycleList.add(4.0);
-        cycleList.remove(0);
+        cycleList.add(floatUserType.create());
+        cycleList.add(floatUserType.create());
+        cycleList.add(floatUserType.create());
+        cycleList.add(floatUserType.create());
+        cycleList.add(floatUserType.create());
+        cycleList.add(floatUserType.create());
+        cycleList.add(floatUserType.create());
+        cycleList.printList();
+        cycleList.sort(floatUserType.getTypeComparator());
+        System.out.println();
+        cycleList.printList();
 
         //cycleList.remove(0);
         System.out.println("It Works!");
