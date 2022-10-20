@@ -1,5 +1,4 @@
 package CycleList;
-//TODO сортировка, не тупая
 
 import Comparator.Comparator;
 
@@ -9,6 +8,16 @@ public class CycleList {
     private Node tail;
     private int length;
 
+    private class Node {
+        Object data;
+        Node next;
+        Node prev;
+
+        public Node(Object data) {
+            this.data = data;
+            next = prev = null;
+        }
+    }
     public void add(Object data) {
         if (head == null) {
             head = new Node(data);
@@ -41,10 +50,6 @@ public class CycleList {
         length++;
     }
 
-    public Object get(int index) {
-        return getNode(index).data;
-    }
-
     public void remove(int index) {
         Node tmp = getNode(index);
         if (tmp != head) {
@@ -63,7 +68,10 @@ public class CycleList {
         length--;
     }
 
-    public int size() {
+    public Object get(int index) {
+        return getNode(index).data;
+    }
+    public int getLength() {
         return length;
     }
 
@@ -74,69 +82,68 @@ public class CycleList {
             tmp = tmp.next;
         }
     }
+
     public void sort(Comparator comparator) {
-        head = mergeSort(head, comparator);
+        if (head != null && head.next != null) {
+            tail.next = null;
+            head = mergeSort(head, comparator);
+            tail = getNode(length - 1);
+            tail.next = head;
+            head.prev = tail;
+        }
     }
 
-    private Node mergeSort(Node h, Comparator comparator) {
-        if (h == null || h.next == null) {
-            return h;
+    private Node mergeSort(Node headNode, Comparator comparator) {
+        if (headNode == null || headNode.next == null) {
+            return headNode;
         }
-        Node middle = getMiddle(h);
+        Node middle = getMidNode(headNode);
         Node middleNext = middle.next;
         middle.next = null;
-        Node left = mergeSort(h, comparator);
+        Node left = mergeSort(headNode, comparator);
         Node right = mergeSort(middleNext, comparator);
         return merge(left, right, comparator);
     }
 
-    private Node merge(Node firstHead, Node secondHead, Comparator comparator) {
-        Node left = firstHead;
-        Node right = secondHead;
+    private Node merge(Node firstNode, Node secondNode, Comparator comparator) {
         Node merged = new Node(null);
         Node temp = merged;
-        while (left != null && right != null) {
-            if (comparator.compare(left.data, right.data) < 0) {
-                temp.next = left;
-                left.prev = temp;
-                left = left.next;
+        while (firstNode != null && secondNode != null) {
+            if (comparator.compare(firstNode.data, secondNode.data) < 0) {
+                temp.next = firstNode;
+                firstNode.prev = temp;
+                firstNode = firstNode.next;
             } else {
-                temp.next = right;
-                right.prev = temp;
-                right = right.next;
+                temp.next = secondNode;
+                secondNode.prev = temp;
+                secondNode = secondNode.next;
             }
             temp = temp.next;
         }
-        while (left != null) {
-            temp.next = left;
-            left.prev = temp;
-            left = left.next;
+        while (firstNode != null) {
+            temp.next = firstNode;
+            firstNode.prev = temp;
+            firstNode = firstNode.next;
             temp = temp.next;
         }
-        while (right != null) {
-            temp.next = right;
-            right.prev = temp;
-            right = right.next;
+        while (secondNode != null) {
+            temp.next = secondNode;
+            secondNode.prev = temp;
+            secondNode = secondNode.next;
             temp = temp.next;
             this.tail = temp;
         }
         return merged.next;
     }
 
-    private Node getMiddle(Node h) {
-        if (h == null)
-            return null;
-        Node fast = h.next;
-        Node slow = h;
-
-        while (fast != tail) {
-            fast = fast.next;
-            if (fast != null) {
-                slow = slow.next;
-                fast = fast.next;
-            }
+    private Node getMidNode(Node node) {
+        Node previousNode = node;
+        Node currentNode = node;
+        while (currentNode.next != null && currentNode.next.next != null) {
+            previousNode = previousNode.next;
+            currentNode = currentNode.next.next;
         }
-        return slow;
+        return previousNode;
     }
 
     private Node getNode(int index) {
@@ -148,24 +155,12 @@ public class CycleList {
         }
         return tmp;
     }
-
     public void printList() {
         Node tmp = head;
         for (int i = 0; i < length; i++) {
             System.out.print(i + ") ");
             System.out.println(tmp.data);
             tmp = tmp.next;
-        }
-    }
-
-    private class Node {
-        Object data;
-        Node next;
-        Node prev;
-
-        public Node(Object data) {
-            this.data = data;
-            next = prev = null;
         }
     }
 }

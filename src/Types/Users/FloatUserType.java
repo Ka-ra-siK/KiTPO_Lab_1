@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class FloatUserType implements UserType{
 
-    private final int MAX = 10000;
-    private final int MIN = -10000;
+    private final float MAX = 1000.0f;
+    private final float MIN = -1000.0f;
 
     @Override
     public String typeName() {

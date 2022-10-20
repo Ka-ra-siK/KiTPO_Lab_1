@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-//        System.out.println("It Works!");
         FloatUserType floatUserType = new FloatUserType();
 
         CycleList cycleList = new CycleList();
@@ -14,11 +13,8 @@ public class Main {
         cycleList.add(floatUserType.create());
         cycleList.add(floatUserType.create());
         cycleList.add(floatUserType.create());
-        cycleList.add(floatUserType.create());
-        cycleList.add(floatUserType.create());
-        cycleList.add(floatUserType.create());
         cycleList.printList();
-        //cycleList.sort(floatUserType.getTypeComparator());
+        cycleList.sort(floatUserType.getTypeComparator());
         System.out.println();
         cycleList.printList();
 
