@@ -2,11 +2,18 @@ package CycleList;
 
 import Comparator.Comparator;
 
+import java.util.ArrayList;
+
 public class CycleList {
 
     private Node head;
     private Node tail;
     private int length;
+
+    private ArrayList<Object> arrayList;
+
+    private Comparator comparator;
+
 
     private class Node {
         Object data;
@@ -18,6 +25,15 @@ public class CycleList {
             next = prev = null;
         }
     }
+
+    public CycleList(Comparator comparator){
+        int sizeList = 15;
+        arrayList = new ArrayList<Object>(sizeList);
+        for (int i = 0; i < sizeList; i++)
+            arrayList.add(null);
+        this.comparator = comparator;
+    }
+
     public void add(Object data) {
         if (head == null) {
             head = new Node(data);
@@ -68,11 +84,21 @@ public class CycleList {
         length--;
     }
 
-    public Object get(int index) {
+    public Object getByIndex(int index) {
         return getNode(index).data;
     }
     public int getLength() {
         return length;
+    }
+
+    private Node getNode(int index) {
+        if (index < 0 || index >= length) throw new IndexOutOfBoundsException();
+        Node tmp = head;
+
+        for (int i = 0; i < index; i++) {
+            tmp = tmp.next;
+        }
+        return tmp;
     }
 
     public void forEach(Iterator<Object> iterator) {
@@ -86,6 +112,7 @@ public class CycleList {
     public void sort(Comparator comparator) {
         if (head != null && head.next != null) {
             tail.next = null;
+            head.prev = null;
             head = mergeSort(head, comparator);
             tail = getNode(length - 1);
             tail.next = head;
@@ -146,15 +173,6 @@ public class CycleList {
         return previousNode;
     }
 
-    private Node getNode(int index) {
-        if (index < 0 || index >= length) throw new IndexOutOfBoundsException();
-        Node tmp = head;
-
-        for (int i = 0; i < index; i++) {
-            tmp = tmp.next;
-        }
-        return tmp;
-    }
     public void printList() {
         Node tmp = head;
         for (int i = 0; i < length; i++) {

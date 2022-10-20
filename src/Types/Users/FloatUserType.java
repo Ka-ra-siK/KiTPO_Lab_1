@@ -42,7 +42,7 @@ public class FloatUserType implements UserType{
 
     @Override
     public Object parseValue(String floatString) {
-        return Float.parseFloat(floatString);
+        return new FloatType(Float.parseFloat(floatString));
     }
 
     @Override

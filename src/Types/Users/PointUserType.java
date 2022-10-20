@@ -7,11 +7,14 @@ import Types.PointType;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PointUserType implements UserType{
 
-    private final float MAX = 10.0F;
-    private final float MIN = -10.0F;
+    private static final float MAX = 10.0F;
+    private static final float MIN = -10.0F;
+    private static final String REGULAR_EXPRESSION = "\\(([0-9]+(?:[.,][0-9]+){0,1});([0-9]+(?:[.,][0-9]+){0,1})\\)";
 
     @Override
     public String typeName() {
@@ -44,7 +47,13 @@ public class PointUserType implements UserType{
 
     @Override
     public Object parseValue(String pointString) {
-        return Float.parseFloat(pointString);
+        Pattern patternString = Pattern.compile(REGULAR_EXPRESSION);
+        Matcher matcher = patternString.matcher(pointString);
+        if (matcher.find()) {
+            PointType pointType = new PointType(Float.valueOf(matcher.group(1)), Float.valueOf(matcher.group(2)));
+            return pointType;
+        }
+        return null;
     }
 
     @Override
@@ -52,4 +61,5 @@ public class PointUserType implements UserType{
         Comparator comparator = new PointComparator();
         return comparator;
     }
+
 }

@@ -13,6 +13,6 @@ public class PointComparator implements Comparator {
     }
 
     public float getVectorLength(float x, float y){
-        return (float) Math.abs(Math.pow(x,2)+Math.pow(y,2));
+        return (float) Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
     }
 }
