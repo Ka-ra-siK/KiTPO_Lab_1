@@ -10,6 +10,16 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Интерфейс для создания объектов,
+ * 2D-точка.
+ * @see UserType#typeName() Получение имя типа
+ * @see UserType#create() Создание объекта
+ * @see UserType#clone(Object) Клонирование текущего объекта
+ * @see UserType#readValue(InputStreamReader) Чтение объекта
+ * @see UserType#parseValue(String) Парсинг содержимого из стоки, с помощью регулярных выражений
+ * @see UserType#getTypeComparator() Получение экземпляра компаратора
+ */
 public class PointUserType implements UserType{
 
     private static final float MAX = 10.0F;

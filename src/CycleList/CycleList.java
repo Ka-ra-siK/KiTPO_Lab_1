@@ -5,6 +5,19 @@ import Comparator.Comparator;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Класс циклического списка.
+ * Реализованы основные методы:
+ * @see CycleList#add(Object) вставка в конец
+ * @see CycleList#add(Object, int) вставка по индексу
+ * @see CycleList#remove(int) удаление по индексу
+ * @see CycleList#forEach(Iterator) итератор
+ * @see CycleList#getByIndex(int) получение данных по индексу
+ * @see CycleList#getNode(int) получение узла
+ * @see CycleList#getLength() получение длины списка
+ * @see CycleList#sort(Comparator) сортировка слиянием
+ * @see CycleList#printList() печать списка
+ */
 public class CycleList implements Serializable {
 
     private Node head;
@@ -16,6 +29,11 @@ public class CycleList implements Serializable {
     private Comparator comparator;
 
 
+    /**
+     * Класс узла списка
+     * Хранит Object в виде данных
+     * Указатель на следующий и предыдущий
+     */
     private class Node implements Serializable {
         Object data;
         Node next;
@@ -28,10 +46,6 @@ public class CycleList implements Serializable {
     }
 
     public CycleList(Comparator comparator) {
-        int sizeList = 15;
-        arrayList = new ArrayList<Object>(sizeList);
-        for (int i = 0; i < sizeList; i++)
-            arrayList.add(null);
         this.comparator = comparator;
     }
 
@@ -111,6 +125,14 @@ public class CycleList implements Serializable {
         }
     }
 
+    /**
+     * Сортировка слиянием.
+     * Реализовано 3 метода: (mergeSort(), merge(), getMidNode()).
+     * @see CycleList#mergeSort(Node, Comparator) рекурсивно разделяет список
+     * @see CycleList#merge(Node, Node, Comparator) выполняет слияние
+     * @see CycleList#getMidNode(Node) находит центр списка
+     * @param comparator экземпляр класса Comparator, для сравнения объектов
+     */
     public void sort(Comparator comparator) {
         if (head != null && head.next != null) {
             tail.next = null;
@@ -176,15 +198,12 @@ public class CycleList implements Serializable {
     }
 
     public void printList() {
-        //String str = null;
         Node tmp = head;
         for (int i = 0; i < length; i++) {
-            // str = i + ") " + tmp.data + "\n";
             System.out.print(i + ") ");
             System.out.println(tmp.data);
             tmp = tmp.next;
         }
-        //return str;
     }
 
     public String toString() {

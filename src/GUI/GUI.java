@@ -11,6 +11,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/**
+ * Графический интерфейс.
+ * Реализованы основные методы:
+ * @see GUI#showMenu() Создание меню
+ * @see GUI#selectTypeList(ActionEvent) Выбор типа данных
+ * @see GUI#addNode() Вставка в конец
+ * @see GUI#addNodeById() Вставка по id
+ * @see GUI#deleteNodeById() Удаление по индексу
+ * @see GUI#sortList() Сортировка слиянием
+ * @see GUI#findNodeById() Назождение по индексу
+ * @see GUI#saveList() Сохранение списка
+ * @see GUI#loadList() Загрузка списка
+ * @see GUI#clearOutTextField() Очистка экрана
+ * @see GUI#setTextOnOutTextField() Вывод на экран
+ */
 public class GUI extends JPanel {
     private JButton findBtn;
     private JButton delBtn;
@@ -53,7 +68,6 @@ public class GUI extends JPanel {
             factoryListItems[i] = typeNameList.get(i);
         }
 
-
         findBtn = new JButton("Найти");
         delBtn = new JButton("Удалить");
         insertByIdBtn = new JButton("Вставить");
@@ -75,15 +89,15 @@ public class GUI extends JPanel {
         sortLabel = new JLabel("Сортировка");
 
 
-        //set components properties
+        //Свойства компонентов
         outTextField.setEnabled(true);
         outTextField.setFont(new Font("Arial", Font.BOLD, 14));
 
-        //adjust size and set layout
+        //Размер макета
         setPreferredSize(new Dimension(600, 563));
         setLayout(null);
 
-        //add components
+        //Добавление компонентов
         add(findBtn);
         add(delBtn);
         add(insertByIdBtn);
@@ -104,6 +118,7 @@ public class GUI extends JPanel {
         add(loadBtn);
         add(clearBtn);
 
+        //регулировка положения компонентов
         findBtn.setBounds(25, 135, 150, 25);
         delBtn.setBounds(25, 220, 150, 25);
         insertByIdBtn.setBounds(25, 315, 150, 25);
@@ -124,12 +139,11 @@ public class GUI extends JPanel {
         loadBtn.setBounds(25, 490, 150, 20);
         clearBtn.setBounds(25, 520, 150, 25);
 
+        //Добавление действий на кнопки
         findBtn.addActionListener(e -> findNodeById());
         delBtn.addActionListener(e -> deleteNodeById());
         insertByIdBtn.addActionListener(e -> addNodeById());
-
         insertBtn.addActionListener(e -> addNode());
-
         sortBtn.addActionListener(e -> sortList());
         saveBtn.addActionListener(e -> saveList());
         loadBtn.addActionListener(e -> loadList());

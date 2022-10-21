@@ -6,6 +6,12 @@ import Types.Users.UserType;
 
 import java.util.ArrayList;
 
+/**
+ * Класс - фабрика.
+ * Возвращает класс по названию типа данных.
+ * @see UserFactory#getTypeNameList() Метод получения динамичесого массива названий типов данных
+ * @see UserFactory#getBuilderByName(String) Метод получения пользовательского типа данных
+ */
 public class UserFactory {
     public ArrayList<String> getTypeNameList() {
         ArrayList<String> typeNameList = new ArrayList<>();

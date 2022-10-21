@@ -8,6 +8,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+/**
+ * Интерфейс для создания объектов,
+ * вещественное число.
+ * @see UserType#typeName() Получение имя типа
+ * @see UserType#create() Создание объекта
+ * @see UserType#clone(Object) Клонирование текущего объекта
+ * @see UserType#readValue(InputStreamReader) Чтение объекта
+ * @see UserType#parseValue(String) Парсинг содержимого из стоки, с помощью регулярных выражений
+ * @see UserType#getTypeComparator() Получение экземпляра компаратора
+ */
 public class FloatUserType implements UserType{
 
     private final float MAX = 1000.0f;

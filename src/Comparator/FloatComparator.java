@@ -4,6 +4,9 @@ import Types.FloatType;
 
 import java.io.Serializable;
 
+/**
+ * Сравнение объектов типа Float
+ */
 public class FloatComparator implements Comparator, Serializable {
     @Override
     public float compare(Object o1, Object o2) {
