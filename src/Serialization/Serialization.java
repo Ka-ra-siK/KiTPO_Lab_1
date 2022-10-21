@@ -6,8 +6,10 @@ import java.io.*;
 
 public class Serialization {
     public static void saveToFile(String filename, CycleList cycleList) throws IOException {
-        FileOutputStream outputStream = new FileOutputStream(filename);
-        ObjectOutputStream outFile = new ObjectOutputStream(outputStream);
+        FileOutputStream outputStream = null;
+        ObjectOutputStream outFile = null;
+        outputStream = new FileOutputStream(filename);
+        outFile = new ObjectOutputStream(outputStream);
         outFile.writeObject(cycleList);
         outFile.close();
         outputStream.close();

@@ -26,7 +26,7 @@ public class CycleList {
         }
     }
 
-    public CycleList(Comparator comparator){
+    public CycleList(Comparator comparator) {
         int sizeList = 15;
         arrayList = new ArrayList<Object>(sizeList);
         for (int i = 0; i < sizeList; i++)
@@ -87,6 +87,7 @@ public class CycleList {
     public Object getByIndex(int index) {
         return getNode(index).data;
     }
+
     public int getLength() {
         return length;
     }
@@ -174,11 +175,25 @@ public class CycleList {
     }
 
     public void printList() {
+        //String str = null;
         Node tmp = head;
         for (int i = 0; i < length; i++) {
+            // str = i + ") " + tmp.data + "\n";
             System.out.print(i + ") ");
             System.out.println(tmp.data);
             tmp = tmp.next;
         }
+        //return str;
+    }
+
+    public String toString() {
+        String str = "";
+        Node tmp = head;
+        for (int i = 0; i < length; i++) {
+            str = str + i + ") " + tmp.data + "\n";
+            tmp = tmp.next;
+        }
+        return str;
+
     }
 }
