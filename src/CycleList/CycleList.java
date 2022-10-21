@@ -2,9 +2,10 @@ package CycleList;
 
 import Comparator.Comparator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CycleList {
+public class CycleList implements Serializable {
 
     private Node head;
     private Node tail;
@@ -15,7 +16,7 @@ public class CycleList {
     private Comparator comparator;
 
 
-    private class Node {
+    private class Node implements Serializable {
         Object data;
         Node next;
         Node prev;

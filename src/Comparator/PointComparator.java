@@ -2,7 +2,9 @@ package Comparator;
 
 import Types.PointType;
 
-public class PointComparator implements Comparator {
+import java.io.Serializable;
+
+public class PointComparator implements Comparator, Serializable {
     @Override
     public float compare(Object o1, Object o2) {
         float firstX = ((PointType) o1).getX();

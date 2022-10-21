@@ -1,6 +1,8 @@
 package Types;
 
-public class FloatType {
+import java.io.Serializable;
+
+public class FloatType implements Serializable {
     private float floatTypeValue;
 
     public FloatType(float floatTypeValue) {

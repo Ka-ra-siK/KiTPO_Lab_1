@@ -1,6 +1,8 @@
 package Types;
 
-public class PointType {
+import java.io.Serializable;
+
+public class PointType implements Serializable {
 
     private float x;
     private float y;

@@ -5,6 +5,8 @@ import Factory.UserFactory;
 import Serialization.Serialization;
 import Types.Users.UserType;
 
+import java.io.IOException;
+
 public class Testing {
     private UserFactory userFactory;
     private UserType userType;
@@ -41,28 +43,26 @@ public class Testing {
         cycleList.remove(6);
         cycleList.printList();
 
-//        System.out.println("-----SAVE IN BINARY FILE----");
-//        Serialization serialization = new Serialization();
-//        try {
-//            serialization.saveToFile(FLOAT_FILE_SAVE, cycleList);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-
+        System.out.println("-----SAVE IN BINARY FILE----");
+        try {
+            serialization.saveToFile(FLOAT_FILE_SAVE, cycleList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("-----------SORTING----------");
         cycleList.sort(userType.getTypeComparator());
         cycleList.printList();
 
-//        System.out.println("---LOAD FROM BINARY FILE----");
-//        try {
-//            cycleList = serialization.loadFromFile(FLOAT_FILE_SAVE);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        cycleList.printList();
+        System.out.println("---LOAD FROM BINARY FILE----");
+        try {
+            cycleList = serialization.loadFromFile(FLOAT_FILE_SAVE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        cycleList.printList();
 
         System.out.println("---------FOR EACH-----------");
         cycleList.forEach(System.out::println);
@@ -97,26 +97,26 @@ public class Testing {
         cycleList.remove(6);
         cycleList.printList();
 
-//        System.out.println("-----SAVE IN BINARY FILE----");
-//        try {
-//            serialization.saveToFile(POINT_FILE_SAVE, cycleList);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        System.out.println("-----SAVE IN BINARY FILE----");
+        try {
+            serialization.saveToFile(POINT_FILE_SAVE, cycleList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("-----------SORTING----------");
         cycleList.sort(userType.getTypeComparator());
         cycleList.printList();
 
-//        System.out.println("---LOAD FROM BINARY FILE----");
-//        try {
-//            cycleList = serialization.loadFromFile(POINT_FILE_SAVE);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        cycleList.printList();
+        System.out.println("---LOAD FROM BINARY FILE----");
+        try {
+            cycleList = serialization.loadFromFile(POINT_FILE_SAVE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        cycleList.printList();
 
         System.out.println("---------FOR EACH-----------");
         cycleList.forEach(System.out::println);
