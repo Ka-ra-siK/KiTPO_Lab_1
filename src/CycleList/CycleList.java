@@ -24,6 +24,8 @@ import java.io.*;
  * @see CycleList#getLength() получение длины списка
  * @see CycleList#sort(Comparator) сортировка слиянием
  * @see CycleList#printList() печать списка
+ * @see CycleList#save(UserType, String) сохранение в XML
+ * @see CycleList#load(String) сохранение в XML
  */
 public class CycleList implements Serializable {
 
@@ -252,16 +254,7 @@ public class CycleList implements Serializable {
 
     }
 
-    public void clearList(){
-       int size = length;
-//        for (int i = size - 1; i >= 0; --i) {
-//            remove(i);
-//        }
-//        while (length != 0){
-//            Node tmp = head;
-//            remove();
-//        }
-
+    public void clearList() {
         head = null;
         length = 0;
     }
@@ -302,12 +295,10 @@ public class CycleList implements Serializable {
     }
 
     public void load(String fileName) throws FileNotFoundException, XMLStreamException {
-        UserFactory userFactory = new UserFactory();;
+        UserFactory userFactory = new UserFactory();
         UserType userType;
         clearList();
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
         XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(
                 new FileInputStream(fileName));
         int eventType = reader.getEventType();

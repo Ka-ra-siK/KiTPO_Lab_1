@@ -53,7 +53,8 @@ public class GUI extends JPanel {
     public CycleList cycleList;
     public String defaultType;
 
-    public final String FILE_NAME = "CycleList.ser";
+    public final String FILE_NAME_FLOAT = "CycleListFloat.xml";
+    public final String FILE_NAME_POINT = "CycleListPoint.xml";
 
     public GUI() {
         defaultType = "Float";
@@ -146,7 +147,15 @@ public class GUI extends JPanel {
         insertBtn.addActionListener(e -> addNode());
         sortBtn.addActionListener(e -> sortList());
         saveBtn.addActionListener(e -> saveList());
-        loadBtn.addActionListener(e -> loadList());
+        loadBtn.addActionListener(e -> {
+            try {
+                loadList();
+            } catch (XMLStreamException ex) {
+                throw new RuntimeException(ex);
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         clearBtn.addActionListener(e -> clearOutTextField());
         typeList.addActionListener(e -> selectTypeList(e));
     }
@@ -211,19 +220,27 @@ public class GUI extends JPanel {
     }
 
     private void saveList() {
-        cycleList.save(userType, FILE_NAME);
-        JOptionPane.showMessageDialog(null, "Список успешно сохранен в \"" + FILE_NAME + "\"!");
+        if (defaultType == "Float") {
+            cycleList.save(userType, FILE_NAME_FLOAT);
+            JOptionPane.showMessageDialog(null, "Список успешно сохранен в \"" + FILE_NAME_FLOAT + "\"!");
+        }
+        else {
+            cycleList.save(userType, FILE_NAME_POINT);
+            JOptionPane.showMessageDialog(null, "Список успешно сохранен в \"" + FILE_NAME_POINT + "\"!");
+        }
+
     }
 
-    private void loadList() {
-        try {
-            cycleList.load(FILE_NAME);
+    private void loadList() throws XMLStreamException, FileNotFoundException {
+        if (defaultType == "Float") {
+            cycleList.load(FILE_NAME_FLOAT);
             JOptionPane.showMessageDialog(null, "Список успешно загружен!");
             setTextOnOutTextField();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (XMLStreamException e) {
-            throw new RuntimeException(e);
+        }
+        else{
+            cycleList.load(FILE_NAME_POINT);
+            JOptionPane.showMessageDialog(null, "Список успешно загружен!");
+            setTextOnOutTextField();
         }
     }
 
