@@ -213,12 +213,12 @@ public class GUI extends JPanel {
     }
 
     private void saveList() {
-        try {
-            serialization.saveToFile(FILE_NAME, cycleList);
-            JOptionPane.showMessageDialog(null, "Список успешно сохранен в \"" + FILE_NAME + "\"!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//           //serialization.saveToFile(FILE_NAME, cycleList);
+//            JOptionPane.showMessageDialog(null, "Список успешно сохранен в \"" + FILE_NAME + "\"!");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     private void loadList() {

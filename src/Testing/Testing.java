@@ -45,38 +45,41 @@ public class Testing {
         System.out.println("\n----GET NODE BY INDEX 3----");
         System.out.println("value = " + cycleList.getByIndex(3).toString());
 
-        System.out.println("\n---DELETE NODE BY INDEX 3--");
-        cycleList.remove(3);
-        cycleList.printList();
+//        System.out.println("\n---DELETE NODE BY INDEX 3--");
+//        cycleList.remove(3);
+//        cycleList.printList();
 
-        System.out.println("-----SAVE IN BINARY FILE----");
-        try {
-            serialization.saveToFile(FLOAT_FILE_SAVE, cycleList);
-            System.out.println("Saving is successful!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        System.out.println("-----SAVE IN BINARY FILE----");
+//        try {
+//            serialization.saveToFile(FLOAT_FILE_SAVE, cycleList);
+//            System.out.println("Saving is successful!");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         System.out.println("-----------SORTING----------");
         cycleList.sort(userType.getTypeComparator());
         cycleList.printList();
 
-        System.out.println("---LOAD FROM BINARY FILE----");
-        try {
-            cycleList = serialization.loadFromFile(FLOAT_FILE_SAVE);
-            System.out.println("Loading is successful!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        cycleList.printList();
+//        System.out.println("---LOAD FROM BINARY FILE----");
+//        try {
+//            cycleList = serialization.loadFromFile(FLOAT_FILE_SAVE);
+//            System.out.println("Loading is successful!");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        cycleList.printList();
 
         System.out.println("---------ITERATOR-----------");
         cycleList.forEach(System.out::println);
+
+        System.out.println("---------ITERATOR REVERSE-----------");
+        cycleList.forEachReverse(System.out::println);
     }
 
-    public void testPointType() {
+    public void testPointType() throws IOException {
         userFactory = new UserFactory();
         serialization = new Serialization();
         System.out.println("\n--------------TEST FOR 2D-POINT-------------");
@@ -105,30 +108,36 @@ public class Testing {
         cycleList.remove(3);
         cycleList.printList();
 
+//        System.out.println("-----SAVE IN BINARY FILE----");
+//        try {
+//            serialization.saveToFile(POINT_FILE_SAVE, cycleList);
+//            System.out.println("Saving is successful!");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
         System.out.println("-----SAVE IN BINARY FILE----");
-        try {
-            serialization.saveToFile(POINT_FILE_SAVE, cycleList);
-            System.out.println("Saving is successful!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        serialization.serializeToXML(cycleList);
 
         System.out.println("-----------SORTING----------");
         cycleList.sort(userType.getTypeComparator());
         cycleList.printList();
 
-        System.out.println("---LOAD FROM BINARY FILE----");
-        try {
-            cycleList = serialization.loadFromFile(POINT_FILE_SAVE);
-            System.out.println("Loading is successful!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        cycleList.printList();
+//        System.out.println("---LOAD FROM BINARY FILE----");
+//        try {
+//            cycleList = serialization.loadFromFile(POINT_FILE_SAVE);
+//            System.out.println("Loading is successful!");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        cycleList.printList();
 
         System.out.println("---------ITERATOR-----------");
         cycleList.forEach(System.out::println);
+
+        System.out.println("---------ITERATOR REVERSE-----------");
+        cycleList.forEachReverse(System.out::println);
     }
 }

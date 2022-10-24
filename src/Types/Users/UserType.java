@@ -16,11 +16,11 @@ import java.io.InputStreamReader;
  * @see UserType#getTypeComparator() Получение экземпляра компаратора
  */
 public interface UserType{
-    public String typeName();			// Имя типа
-    public Object create();				// Создает объект ИЛИ
-    public Object clone(Object object);				// Клонирует текущий
-    public Object readValue(InputStreamReader in) throws IOException; // Создает и читает объект
-    public Object parseValue(String ss);		// Создает и парсит содержимое из строки
-    public Comparator getTypeComparator();	// Возвращает компаратор для сравнения
+    public String typeName();
+    public Object create();
+    public Object clone(Object object);
+    public Object readValue(InputStreamReader in) throws IOException;
+    public Object parseValue(String ss);
+    public Comparator getTypeComparator();
 }
 
