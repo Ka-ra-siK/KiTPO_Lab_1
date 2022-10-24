@@ -138,7 +138,7 @@ public class CycleList implements Serializable {
      */
     public void forEach(Iterator<Object> iterator) {
         Node tmp = head;
-        for (int i = 0; i <= length; i++) {
+        for (int i = 0; i < length; i++) {
             iterator.toDo(tmp.data);
             tmp = tmp.next;
         }
@@ -152,7 +152,7 @@ public class CycleList implements Serializable {
      */
     public void forEachReverse(Iterator<Object> iterator) {
         Node tmp = head;
-        for (int i = 0; i <= length; i++) {
+        for (int i = 0; i < length; i++) {
             iterator.toDo(tmp.data);
             tmp = tmp.prev;
         }
@@ -259,6 +259,11 @@ public class CycleList implements Serializable {
         length = 0;
     }
 
+    /**
+     * Сохранение структуры в XML - файл.
+     * @param userType тип данных для сохранения
+     * @param fileName название фала для сохранения
+     */
     public void save(UserType userType, String fileName) {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = null;
@@ -294,6 +299,12 @@ public class CycleList implements Serializable {
         }
     }
 
+    /**
+     * Загрузка из XML-файла
+     * @param fileName название фала для загрузки
+     * @throws FileNotFoundException
+     * @throws XMLStreamException
+     */
     public void load(String fileName) throws FileNotFoundException, XMLStreamException {
         UserFactory userFactory = new UserFactory();
         UserType userType;
