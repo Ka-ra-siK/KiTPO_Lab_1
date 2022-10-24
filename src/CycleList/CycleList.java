@@ -254,15 +254,22 @@ public class CycleList implements Serializable {
 
     public void clearList(){
        int size = length;
-        for (int i = size - 1; i >= 0; i--) {
-            remove(i);
-        }
+//        for (int i = size - 1; i >= 0; --i) {
+//            remove(i);
+//        }
+//        while (length != 0){
+//            Node tmp = head;
+//            remove();
+//        }
+
+        head = null;
+        length = 0;
     }
 
-    public void save(UserType userType, CycleList cycleList) {
+    public void save(UserType userType, String fileName) {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = null;
-        try (FileWriter fileWriter = new FileWriter("myoutput.xml")) {
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
             writer = factory.createXMLStreamWriter(fileWriter);
             writer.writeStartDocument();
             writer.writeStartElement("list");
@@ -272,12 +279,12 @@ public class CycleList implements Serializable {
             writer.writeEndElement();
 
             writer.writeStartElement("lenth");
-            writer.writeCharacters(String.valueOf(cycleList.getLength()));
+            writer.writeCharacters(String.valueOf(getLength()));
             writer.writeEndElement();
 
             writer.writeStartElement("nodes");
-            Node head = cycleList.head;
-            for (int i = 0; i < cycleList.getLength(); i++) {
+            Node head = this.head;
+            for (int i = 0; i < this.getLength(); i++) {
                 writer.writeStartElement("node");
                 writer.writeCharacters(String.valueOf(head.data));
                 writer.writeEndElement();
@@ -294,58 +301,33 @@ public class CycleList implements Serializable {
         }
     }
 
-    public void load() throws FileNotFoundException, XMLStreamException {
-        clearList();
+    public void load(String fileName) throws FileNotFoundException, XMLStreamException {
         UserFactory userFactory = new UserFactory();;
         UserType userType;
-        String fileName = "myoutput.xml";
+        clearList();
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-
         xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-
         XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(
                 new FileInputStream(fileName));
-
         int eventType = reader.getEventType();
-
         while (reader.hasNext()) {
-
             eventType = reader.next();
-
             if (eventType == XMLEvent.START_ELEMENT) {
-
                 switch (reader.getName().getLocalPart()) {
-
                     case "usertype":
                         eventType = reader.next();
                         if (eventType == XMLEvent.CHARACTERS) {
-                            //System.out.printf("UserType : %s%n", reader.getText());
                             userType = userFactory.getBuilderByName(reader.getText());
                             comparator = userType.getTypeComparator();
                         }
                         break;
-
-                    case "lenth":
-                        eventType = reader.next();
-                        if (eventType == XMLEvent.CHARACTERS) {
-                            System.out.printf("Lenth : %s%n", reader.getText());
-                            length= Integer.parseInt(reader.getText());
-                        }
-                        break;
-
                     case "node":
                         eventType = reader.next();
                         if (eventType == XMLEvent.CHARACTERS) {
                             add(reader.getText());
                         }
                         break;
-                }
-            }
-            if (eventType == XMLEvent.END_ELEMENT) {
-                // if </staff>
-                if (reader.getName().getLocalPart().equals("staff")) {
-                    System.out.printf("%n%s%n%n", "---");
                 }
             }
         }

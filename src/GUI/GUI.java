@@ -2,18 +2,20 @@ package GUI;
 
 import CycleList.CycleList;
 import Factory.UserFactory;
-import Serialization.Serialization;
 import Types.Users.UserType;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.xml.stream.XMLStreamException;
 
 /**
  * Графический интерфейс.
  * Реализованы основные методы:
+ *
  * @see GUI#showMenu() Создание меню
  * @see GUI#selectTypeList(ActionEvent) Выбор типа данных
  * @see GUI#addNode() Вставка в конец
@@ -49,7 +51,6 @@ public class GUI extends JPanel {
     public UserFactory userFactory;
     public UserType userType;
     public CycleList cycleList;
-    Serialization serialization;
     public String defaultType;
 
     public final String FILE_NAME = "CycleList.ser";
@@ -59,7 +60,6 @@ public class GUI extends JPanel {
         userFactory = new UserFactory();
         userType = userFactory.getBuilderByName(defaultType);
         cycleList = new CycleList(userType.getTypeComparator());
-        serialization = new Serialization();
 
         ArrayList<String> typeNameList = userFactory.getTypeNameList();
         String[] factoryListItems = new String[typeNameList.size()];
@@ -185,7 +185,6 @@ public class GUI extends JPanel {
         }
         cycleList.add(userType.create(), Integer.parseInt(insertByIdField.getText()));
         setTextOnOutTextField();
-        //TODO обработка исключений при вставке неправильного индекса (вызодящего за размер списка)
     }
 
     private void deleteNodeById() {
@@ -195,7 +194,6 @@ public class GUI extends JPanel {
         }
         cycleList.remove(Integer.parseInt(delByIdField.getText()));
         setTextOnOutTextField();
-        //TODO обработка исключений при удалении неправильного индекса (вызодящего за размер списка)
     }
 
     private void sortList() {
@@ -213,22 +211,18 @@ public class GUI extends JPanel {
     }
 
     private void saveList() {
-//        try {
-//           //serialization.saveToFile(FILE_NAME, cycleList);
-//            JOptionPane.showMessageDialog(null, "Список успешно сохранен в \"" + FILE_NAME + "\"!");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        cycleList.save(userType, FILE_NAME);
+        JOptionPane.showMessageDialog(null, "Список успешно сохранен в \"" + FILE_NAME + "\"!");
     }
 
     private void loadList() {
         try {
-            cycleList = serialization.loadFromFile(FILE_NAME);
+            cycleList.load(FILE_NAME);
             JOptionPane.showMessageDialog(null, "Список успешно загружен!");
             setTextOnOutTextField();
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
     }
