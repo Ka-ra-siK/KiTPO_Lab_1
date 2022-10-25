@@ -62,12 +62,12 @@ public class GUI extends JPanel {
         userType = userFactory.getBuilderByName(defaultType);
         cycleList = new CycleList(userType.getTypeComparator());
 
-        ArrayList<String> typeNameList = userFactory.getTypeNameList();
-        String[] factoryListItems = new String[typeNameList.size()];
-
-        for (int i = 0; i < typeNameList.size(); i++) {
-            factoryListItems[i] = typeNameList.get(i);
-        }
+        //ArrayList<String> typeNameList = userFactory.getTypeNameList();
+//        String[] factoryListItems = new String[typeNameList.size()];
+//
+//        for (int i = 0; i < typeNameList.size(); i++) {
+//            factoryListItems[i] = typeNameList.get(i);
+//        }
 
         findBtn = new JButton("Найти");
         delBtn = new JButton("Удалить");
@@ -78,7 +78,7 @@ public class GUI extends JPanel {
         loadBtn = new JButton("Загрузить");
         clearBtn = new JButton("Очистить");
         outTextField = new JTextArea(5, 5);
-        typeList = new JComboBox(factoryListItems);
+        //typeList = new JComboBox(factoryListItems);
         findByIdField = new JTextField(5);
         findLabel = new JLabel("Поиск по индексу");
         delByIdField = new JTextField(5);

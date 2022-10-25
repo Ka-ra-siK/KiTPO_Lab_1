@@ -4,7 +4,11 @@ import Types.Users.FloatUserType;
 import Types.Users.PointUserType;
 import Types.Users.UserType;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Класс - фабрика.
@@ -13,27 +17,24 @@ import java.util.ArrayList;
  * @see UserFactory#getBuilderByName(String) Метод получения пользовательского типа данных
  */
 public class UserFactory {
-    public ArrayList<String> getTypeNameList() {
-        ArrayList<String> typeNameList = new ArrayList<>();
-        typeNameList.add("Float");
-        typeNameList.add("Point");
-        return typeNameList;
-    }
+    private final static  ArrayList<UserType> typeNameList = new ArrayList<>();
 
-    public UserType getBuilderByName(String name) {
-        switch (name) {
-            case "Float": {
-                return new FloatUserType();
-            }
-            case "Point": {
-                return new PointUserType();
-            }
-            default:
-                try {
-                    throw new Exception("Error! Can't find type by name!");
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+    static {
+        ArrayList<UserType> buildersClasses = new ArrayList<>(Arrays.asList(new FloatUserType(), new PointUserType()));
+
+        buildersClasses.forEach(bc -> typeNameList.add(bc));
+    }
+    public static Set<String> getTypeNameList() {
+        return typeNameList.stream().map(UserType::typeName).collect(Collectors.toSet());
+    }
+    public static UserType getBuilderByName(String name){
+        if (name == null){
+            throw new RuntimeException("Error! Name of type is empty!");
         }
+        for (UserType userType : typeNameList) {
+            if (name.equals(userType.typeName()))
+                return userType;
+        }
+        return null;
     }
 }
