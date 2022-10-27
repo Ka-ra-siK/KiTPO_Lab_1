@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 import javax.swing.*;
 import javax.xml.stream.XMLStreamException;
 
@@ -53,21 +54,16 @@ public class GUI extends JPanel {
     public CycleList cycleList;
     public String defaultType;
 
-    public final String FILE_NAME_FLOAT = "CycleListFloat.xml";
-    public final String FILE_NAME_POINT = "CycleListPoint.xml";
+    public final String FILE_NAME_FLOAT = "CycleListFloat.dat";
+    public final String FILE_NAME_POINT = "CycleListPoint.dat";
 
     public GUI() {
         defaultType = "Float";
         userFactory = new UserFactory();
         userType = userFactory.getBuilderByName(defaultType);
         cycleList = new CycleList(userType.getTypeComparator());
-
-        //ArrayList<String> typeNameList = userFactory.getTypeNameList();
-//        String[] factoryListItems = new String[typeNameList.size()];
-//
-//        for (int i = 0; i < typeNameList.size(); i++) {
-//            factoryListItems[i] = typeNameList.get(i);
-//        }
+        Set<String> typeNameList = userFactory.getTypeNameList();
+        JComboBox<String> factoryListItems = new JComboBox<>(UserFactory.getTypeNameList().toArray(new String[0]));
 
         findBtn = new JButton("Найти");
         delBtn = new JButton("Удалить");
@@ -78,7 +74,7 @@ public class GUI extends JPanel {
         loadBtn = new JButton("Загрузить");
         clearBtn = new JButton("Очистить");
         outTextField = new JTextArea(5, 5);
-        //typeList = new JComboBox(factoryListItems);
+        typeList = factoryListItems;
         findByIdField = new JTextField(5);
         findLabel = new JLabel("Поиск по индексу");
         delByIdField = new JTextField(5);
@@ -233,12 +229,12 @@ public class GUI extends JPanel {
 
     private void loadList() throws XMLStreamException, FileNotFoundException {
         if (defaultType == "Float") {
-            cycleList.load(FILE_NAME_FLOAT);
+            cycleList.load(userType, FILE_NAME_FLOAT);
             JOptionPane.showMessageDialog(null, "Список успешно загружен!");
             setTextOnOutTextField();
         }
         else{
-            cycleList.load(FILE_NAME_POINT);
+            cycleList.load(userType, FILE_NAME_POINT);
             JOptionPane.showMessageDialog(null, "Список успешно загружен!");
             setTextOnOutTextField();
         }

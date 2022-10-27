@@ -51,13 +51,19 @@ public class FloatUserType implements UserType{
     }
 
     @Override
-    public Object parseValue(String floatString) {
+    public FloatType parseValue(String floatString) {
         return new FloatType(Float.parseFloat(floatString));
     }
+
 
     @Override
     public Comparator getTypeComparator() {
         Comparator comparator = new FloatComparator();
         return comparator;
+    }
+
+    @Override
+    public String toString(Object object) {
+        return object.toString();
     }
 }

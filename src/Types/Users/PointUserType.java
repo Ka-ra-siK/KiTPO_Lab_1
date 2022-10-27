@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 /**
  * Интерфейс для создания объектов,
  * 2D-точка.
+ *
  * @see UserType#typeName() Получение имя типа
  * @see UserType#create() Создание объекта
  * @see UserType#clone(Object) Клонирование текущего объекта
@@ -20,11 +21,11 @@ import java.util.regex.Pattern;
  * @see UserType#parseValue(String) Парсинг содержимого из стоки, с помощью регулярных выражений
  * @see UserType#getTypeComparator() Получение экземпляра компаратора
  */
-public class PointUserType implements UserType{
+public class PointUserType implements UserType {
 
     private static final float MAX = 10.0F;
     private static final float MIN = -10.0F;
-    private static final String REGULAR_EXPRESSION = "\\(([0-9]+(?:[.,][0-9]+){0,1});([0-9]+(?:[.,][0-9]+){0,1})\\)";
+    private static final String REGULAR_EXPRESSION = "\\(([-]?[0-9]+(?:[.,][0-9]+){0,1});([-]?[0-9]+(?:[.,][0-9]+){0,1})\\)";
 
     @Override
     public String typeName() {
@@ -42,12 +43,12 @@ public class PointUserType implements UserType{
 
     @Override
     public Object clone(Object object) {
-        PointType copyPointTypeValue = new PointType(((PointType)object).getX(), ((PointType)object).getY());
+        PointType copyPointTypeValue = new PointType(((PointType) object).getX(), ((PointType) object).getY());
         return copyPointTypeValue;
     }
 
     @Override
-    public Object readValue(InputStreamReader in){
+    public Object readValue(InputStreamReader in) {
         try {
             return in.read();
         } catch (IOException e) {
@@ -56,7 +57,7 @@ public class PointUserType implements UserType{
     }
 
     @Override
-    public Object parseValue(String pointString) {
+    public PointType parseValue(String pointString) {
         Pattern patternString = Pattern.compile(REGULAR_EXPRESSION);
         Matcher matcher = patternString.matcher(pointString);
         if (matcher.find()) {
@@ -70,6 +71,11 @@ public class PointUserType implements UserType{
     public Comparator getTypeComparator() {
         Comparator comparator = new PointComparator();
         return comparator;
+    }
+
+    @Override
+    public String toString(Object object) {
+        return object.toString();
     }
 
 }

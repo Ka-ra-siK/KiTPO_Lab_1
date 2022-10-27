@@ -13,16 +13,13 @@ import java.util.stream.Collectors;
 /**
  * Класс - фабрика.
  * Возвращает класс по названию типа данных.
- * @see UserFactory#getTypeNameList() Метод получения динамичесого массива названий типов данных
- * @see UserFactory#getBuilderByName(String) Метод получения пользовательского типа данных
  */
 public class UserFactory {
-    private final static  ArrayList<UserType> typeNameList = new ArrayList<>();
+    private final static ArrayList<UserType> typeNameList = new ArrayList<>();
 
     static {
         ArrayList<UserType> buildersClasses = new ArrayList<>(Arrays.asList(new FloatUserType(), new PointUserType()));
-
-        buildersClasses.forEach(bc -> typeNameList.add(bc));
+        buildersClasses.forEach(userType -> typeNameList.add(userType));
     }
     public static Set<String> getTypeNameList() {
         return typeNameList.stream().map(UserType::typeName).collect(Collectors.toSet());

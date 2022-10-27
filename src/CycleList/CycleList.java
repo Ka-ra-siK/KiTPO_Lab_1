@@ -24,8 +24,8 @@ import java.io.*;
  * @see CycleList#getLength() получение длины списка
  * @see CycleList#sort(Comparator) сортировка слиянием
  * @see CycleList#printList() печать списка
- * @see CycleList#save(UserType, String) сохранение в XML
- * @see CycleList#load(String) сохранение в XML
+ * @see CycleList#save(UserType, String) сохранение
+ * @see CycleList#load(UserType, String) загрузка
  */
 public class CycleList implements Serializable {
 
@@ -260,78 +260,44 @@ public class CycleList implements Serializable {
     }
 
     /**
-     * Сохранение структуры в XML - файл.
-     * @param userType тип данных для сохранения
-     * @param fileName название фала для сохранения
+     * Сохранение в файл
+     * @param userType тип данных
+     * @param fileName название файла для загрузки
      */
     public void save(UserType userType, String fileName) {
-        XMLOutputFactory factory = XMLOutputFactory.newInstance();
-        XMLStreamWriter writer = null;
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            writer = factory.createXMLStreamWriter(fileWriter);
-            writer.writeStartDocument();
-            writer.writeStartElement("list");
-
-            writer.writeStartElement("usertype");
-            writer.writeCharacters(userType.typeName());
-            writer.writeEndElement();
-
-            writer.writeStartElement("lenth");
-            writer.writeCharacters(String.valueOf(getLength()));
-            writer.writeEndElement();
-
-            writer.writeStartElement("nodes");
-            Node head = this.head;
-            for (int i = 0; i < this.getLength(); i++) {
-                writer.writeStartElement("node");
-                writer.writeCharacters(String.valueOf(head.data));
-                writer.writeEndElement();
-                head = head.next;
-            }
-            writer.writeEndElement();
-            writer.writeEndElement();
-            writer.writeEndDocument();
-
-            writer.flush();
-            writer.close();
-        } catch (XMLStreamException | IOException e) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(userType.typeName() + "\n");
+            this.forEach(el -> {
+                try {
+                    writer.write(userType.toString(el) + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Загрузка из XML-файла
-     * @param fileName название фала для загрузки
-     * @throws FileNotFoundException
-     * @throws XMLStreamException
+     * Загрузка из файла
+     * @param userType тип данных
+     * @param fileName название файла для загрузки
      */
-    public void load(String fileName) throws FileNotFoundException, XMLStreamException {
-        UserFactory userFactory = new UserFactory();
-        UserType userType;
+    public void load(UserType userType, String fileName) {
         clearList();
-        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(
-                new FileInputStream(fileName));
-        int eventType = reader.getEventType();
-        while (reader.hasNext()) {
-            eventType = reader.next();
-            if (eventType == XMLEvent.START_ELEMENT) {
-                switch (reader.getName().getLocalPart()) {
-                    case "usertype":
-                        eventType = reader.next();
-                        if (eventType == XMLEvent.CHARACTERS) {
-                            userType = userFactory.getBuilderByName(reader.getText());
-                            comparator = userType.getTypeComparator();
-                        }
-                        break;
-                    case "node":
-                        eventType = reader.next();
-                        if (eventType == XMLEvent.CHARACTERS) {
-                            add(reader.getText());
-                        }
-                        break;
-                }
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            line = br.readLine();
+            if (!userType.typeName().equals(line)) {
+                throw new Exception("Wrong file structure");
             }
+
+            while ((line = br.readLine()) != null) {
+                add(userType.parseValue(line));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -22,5 +22,6 @@ public interface UserType{
     public Object readValue(InputStreamReader in) throws IOException;
     public Object parseValue(String ss);
     public Comparator getTypeComparator();
+    String toString(Object object);
 }
 

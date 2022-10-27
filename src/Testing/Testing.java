@@ -20,9 +20,9 @@ public class Testing {
     private CycleList cycleList;
 
 
-    private static String FLOAT_FILE_SAVE = "saveFloat.xml";
-    private static String POINT_FILE_SAVE = "savePoint.xml";
-    public void testFloatType() throws XMLStreamException, FileNotFoundException {
+    private static String FLOAT_FILE_SAVE = "saveFloat.dat";
+    private static String POINT_FILE_SAVE = "savePoint.dat";
+    public void testFloatType(){
         userFactory = new UserFactory();
         System.out.println("\n--------------TEST FOR FLOAT-------------");
         userType = userFactory.getBuilderByName("Float");
@@ -41,14 +41,19 @@ public class Testing {
         System.out.println("---------PRINT CYCLE LIST---------");
         cycleList.printList();
 
-        System.out.println("-----SAVE TO XML----");
-        cycleList.save(userType, FLOAT_FILE_SAVE);
+        System.out.println("-----SAVE TO FILE .DAT----");
+        try {
+            cycleList.save(userType, FLOAT_FILE_SAVE);
+            System.out.println("Saving is successful!");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("\n----GET NODE BY INDEX 3, 4, 5, 6----");
         System.out.println("3) = " + cycleList.getByIndex(3).toString());
-        System.out.println("4) = " + cycleList.getByIndex(3).toString());
-        System.out.println("5) = " + cycleList.getByIndex(3).toString());
-        System.out.println("6) = " + cycleList.getByIndex(3).toString());
+        System.out.println("4) = " + cycleList.getByIndex(4).toString());
+        System.out.println("5) = " + cycleList.getByIndex(5).toString());
+        System.out.println("6) = " + cycleList.getByIndex(6).toString());
 
         System.out.println("\n---DELETE NODE BY INDEX 3, 4, 5, 6--");
         cycleList.remove(3);
@@ -61,8 +66,8 @@ public class Testing {
         cycleList.sort(userType.getTypeComparator());
         cycleList.printList();
 
-        System.out.println("---LOAD FROM XML----");
-        cycleList.load(FLOAT_FILE_SAVE);
+        System.out.println("---LOAD FROM FILE----");
+        cycleList.load(userType, FLOAT_FILE_SAVE);
         cycleList.printList();
 
         System.out.println("---------ITERATOR-----------");
@@ -72,7 +77,7 @@ public class Testing {
         cycleList.forEachReverse(System.out::println);
     }
 
-    public void testPointType() throws IOException, XMLStreamException {
+    public void testPointType(){
         userFactory = new UserFactory();
         System.out.println("\n--------------TEST FOR 2D-POINT-------------");
         userType = userFactory.getBuilderByName("Point");
@@ -92,14 +97,19 @@ public class Testing {
         System.out.println("---------PRINT CYCLE LIST---------");
         cycleList.printList();
 
-        System.out.println("-----SAVE TO XML----");
-        cycleList.save(userType, POINT_FILE_SAVE);
+        System.out.println("-----SAVE TO FILE .DAT----");
+        try {
+            cycleList.save(userType, POINT_FILE_SAVE);
+            System.out.println("Saving is successful!");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("\n----GET NODE BY INDEX 3, 4, 5, 6----");
         System.out.println("3) = " + cycleList.getByIndex(3).toString());
-        System.out.println("4) = " + cycleList.getByIndex(3).toString());
-        System.out.println("5) = " + cycleList.getByIndex(3).toString());
-        System.out.println("6) = " + cycleList.getByIndex(3).toString());
+        System.out.println("4) = " + cycleList.getByIndex(4).toString());
+        System.out.println("5) = " + cycleList.getByIndex(5).toString());
+        System.out.println("6) = " + cycleList.getByIndex(6).toString());
 
         System.out.println("\n---DELETE NODE BY INDEX 3, 4, 5, 6--");
         cycleList.remove(3);
@@ -112,8 +122,8 @@ public class Testing {
         cycleList.sort(userType.getTypeComparator());
         cycleList.printList();
 
-        System.out.println("---LOAD FROM XML----");
-        cycleList.load(POINT_FILE_SAVE);
+        System.out.println("---LOAD FROM FILE----");
+        cycleList.load(userType, POINT_FILE_SAVE);
         cycleList.printList();
 
         System.out.println("---------ITERATOR-----------");
