@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Класс для тестирования.
  * Вывод в консоль трасировки выполнения всех основных методов.
- * @see Testing#testFloatType() Тестирования Float
+ * @see Testing#testDoubleType() Тестирования Float
  * @see Testing#testPointType() Тестирование 2D-Точки
  */
 public class Testing {
@@ -20,12 +20,12 @@ public class Testing {
     private CycleList cycleList;
 
 
-    private static String FLOAT_FILE_SAVE = "saveFloat.dat";
+    private static String DOUBLE_FILE_SAVE = "saveDouble.dat";
     private static String POINT_FILE_SAVE = "savePoint.dat";
-    public void testFloatType(){
+    public void testDoubleType() throws IOException {
         userFactory = new UserFactory();
-        System.out.println("\n--------------TEST FOR FLOAT-------------");
-        userType = userFactory.getBuilderByName("Float");
+        System.out.println("\n--------------TEST FOR Double-------------");
+        userType = userFactory.getBuilderByName("Double");
         cycleList = new CycleList(userType.getTypeComparator());
         cycleList.add(userType.create());
         cycleList.add(userType.create());
@@ -43,7 +43,7 @@ public class Testing {
 
         System.out.println("-----SAVE TO FILE .DAT----");
         try {
-            cycleList.save(userType, FLOAT_FILE_SAVE);
+            cycleList.save(userType, DOUBLE_FILE_SAVE);
             System.out.println("Saving is successful!");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -67,7 +67,7 @@ public class Testing {
         cycleList.printList();
 
         System.out.println("---LOAD FROM FILE----");
-        cycleList.load(userType, FLOAT_FILE_SAVE);
+        cycleList.load(userType, DOUBLE_FILE_SAVE);
         cycleList.printList();
 
         System.out.println("---------ITERATOR-----------");
@@ -77,7 +77,7 @@ public class Testing {
         cycleList.forEachReverse(System.out::println);
     }
 
-    public void testPointType(){
+    public void testPointType() throws IOException {
         userFactory = new UserFactory();
         System.out.println("\n--------------TEST FOR 2D-POINT-------------");
         userType = userFactory.getBuilderByName("Point");

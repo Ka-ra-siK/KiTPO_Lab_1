@@ -18,11 +18,11 @@ public class PointComparator implements Comparator, Serializable {
      * @return разницу между точками
      */
     @Override
-    public float compare(Object o1, Object o2) {
-        float firstX = ((PointType) o1).getX();
-        float secondX = ((PointType) o2).getX();
-        float firstY = ((PointType) o1).getY();
-        float secondY = ((PointType) o2).getY();
+    public double compare(Object o1, Object o2) {
+        double firstX = ((PointType) o1).getX();
+        double secondX = ((PointType) o2).getX();
+        double firstY = ((PointType) o1).getY();
+        double secondY = ((PointType) o2).getY();
         return getVectorLength(firstX, firstY) - getVectorLength(secondX, secondY);
     }
 
@@ -31,7 +31,7 @@ public class PointComparator implements Comparator, Serializable {
      * @param y Точка Y
      * @return Длина вектора от точки (x;y) до координатоной оси
      */
-    public float getVectorLength(float x, float y){
-        return (float) Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+    public double getVectorLength(double x, double y){
+        return Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
     }
 }

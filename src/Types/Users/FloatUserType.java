@@ -1,8 +1,8 @@
 package Types.Users;
 
 import Comparator.Comparator;
-import Comparator.FloatComparator;
-import Types.FloatType;
+import Comparator.DoubleComparator;
+import Types.DoubleType;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,25 +20,25 @@ import java.util.Random;
  */
 public class FloatUserType implements UserType{
 
-    private final float MAX = 1000.0f;
-    private final float MIN = -1000.0f;
+    private final double MAX = 1000.0;
+    private final double MIN = -1000.0;
 
     @Override
     public String typeName() {
-        return "Float";
+        return "Double";
     }
 
     @Override
     public Object create() {
         Random random = new Random();
-        FloatType floatTypeValue = new FloatType(random.nextFloat((MAX - MIN)) + MIN);
-        return floatTypeValue;
+        DoubleType doubleTypeValue = new DoubleType(random.nextDouble((MAX - MIN)) + MIN);
+        return doubleTypeValue;
     }
 
     @Override
     public Object clone(Object object) {
-        FloatType copyFloatTypeValue = new FloatType(((FloatType)object).getFloatTypeValue());
-        return copyFloatTypeValue;
+        DoubleType copyDoubleTypeValue = new DoubleType(((DoubleType)object).getDoubleTypeValue());
+        return copyDoubleTypeValue;
     }
 
     @Override
@@ -51,14 +51,14 @@ public class FloatUserType implements UserType{
     }
 
     @Override
-    public FloatType parseValue(String floatString) {
-        return new FloatType(Float.parseFloat(floatString));
+    public DoubleType parseValue(String doubleString) {
+        return new DoubleType(Double.parseDouble(doubleString));
     }
 
 
     @Override
     public Comparator getTypeComparator() {
-        Comparator comparator = new FloatComparator();
+        Comparator comparator = new DoubleComparator();
         return comparator;
     }
 

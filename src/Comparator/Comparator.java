@@ -5,6 +5,6 @@ package Comparator;
  * @see Comparator#compare(Object, Object) Сравнение объектов
  */
 public interface Comparator{
-    public float compare(Object o1, Object o2);
+    public double compare(Object o1, Object o2);
 }
 

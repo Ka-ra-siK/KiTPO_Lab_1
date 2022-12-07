@@ -4,9 +4,6 @@ import Comparator.Comparator;
 import Factory.UserFactory;
 import Types.Users.UserType;
 
-import javax.xml.XMLConstants;
-import javax.xml.stream.*;
-import javax.xml.stream.events.XMLEvent;
 import java.io.*;
 
 
@@ -17,8 +14,6 @@ import java.io.*;
  * @see CycleList#add(Object) вставка в конец
  * @see CycleList#add(Object, int) вставка по индексу
  * @see CycleList#remove(int) удаление по индексу
- * @see CycleList#forEach(Iterator) итератор
- * @see CycleList#forEachReverse(Iterator) итератор (обратный обход)
  * @see CycleList#getByIndex(int) получение данных по индексу
  * @see CycleList#getNode(int) получение узла
  * @see CycleList#getLength() получение длины списка
@@ -136,7 +131,7 @@ public class CycleList implements Serializable {
      *
      * @param iterator
      */
-    public void forEach(Iterator<Object> iterator) {
+    public void forEach(Iterator iterator) throws IOException {
         Node tmp = head;
         for (int i = 0; i < length; i++) {
             iterator.toDo(tmp.data);
@@ -150,7 +145,7 @@ public class CycleList implements Serializable {
      *
      * @param iterator
      */
-    public void forEachReverse(Iterator<Object> iterator) {
+    public void forEachReverse(Iterator iterator) throws IOException {
         Node tmp = head;
         for (int i = 0; i < length; i++) {
             iterator.toDo(tmp.data);
@@ -185,9 +180,12 @@ public class CycleList implements Serializable {
         }
         Node middle = getMidNode(headNode);
         Node middleNext = middle.next;
+
         middle.next = null;
+
         Node left = mergeSort(headNode, comparator);
         Node right = mergeSort(middleNext, comparator);
+
         return merge(left, right, comparator);
     }
 
@@ -268,11 +266,7 @@ public class CycleList implements Serializable {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(userType.typeName() + "\n");
             this.forEach(el -> {
-                try {
-                    writer.write(userType.toString(el) + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                writer.write(userType.toString(el) + "\n");
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -300,4 +294,5 @@ public class CycleList implements Serializable {
             throw new RuntimeException(e);
         }
     }
+
 }

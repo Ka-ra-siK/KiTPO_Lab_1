@@ -15,20 +15,20 @@ import java.util.stream.Collectors;
  * Возвращает класс по названию типа данных.
  */
 public class UserFactory {
-    private final static ArrayList<UserType> typeNameList = new ArrayList<>();
+    private final static ArrayList<UserType> typeList = new ArrayList<>();
 
     static {
         ArrayList<UserType> buildersClasses = new ArrayList<>(Arrays.asList(new FloatUserType(), new PointUserType()));
-        buildersClasses.forEach(userType -> typeNameList.add(userType));
+        buildersClasses.forEach(userType -> typeList.add(userType));
     }
     public static Set<String> getTypeNameList() {
-        return typeNameList.stream().map(UserType::typeName).collect(Collectors.toSet());
+        return typeList.stream().map(UserType::typeName).collect(Collectors.toSet());
     }
     public static UserType getBuilderByName(String name){
         if (name == null){
             throw new RuntimeException("Error! Name of type is empty!");
         }
-        for (UserType userType : typeNameList) {
+        for (UserType userType : typeList) {
             if (name.equals(userType.typeName()))
                 return userType;
         }

@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class PointType implements Serializable {
 
-    private float x;
-    private float y;
+    private double x;
+    private double y;
 
-    public PointType(float x, float y) {
+    public PointType(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -16,7 +16,7 @@ public class PointType implements Serializable {
         this.x = x;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
@@ -24,7 +24,7 @@ public class PointType implements Serializable {
         this.y = y;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 

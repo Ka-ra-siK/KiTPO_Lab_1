@@ -1,12 +1,15 @@
 import GUI.GUI;
 import Testing.Testing;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Testing test = new Testing();
-        GUI gui = new GUI();
-        test.testFloatType();
+
+        test.testDoubleType();
         test.testPointType();
+        GUI gui = new GUI();
         gui.showMenu();
     }
 }

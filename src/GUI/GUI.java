@@ -58,7 +58,7 @@ public class GUI extends JPanel {
     public final String FILE_NAME_POINT = "CycleListPoint.dat";
 
     public GUI() {
-        defaultType = "Float";
+        defaultType = "Double";
         userFactory = new UserFactory();
         userType = userFactory.getBuilderByName(defaultType);
         cycleList = new CycleList(userType.getTypeComparator());
@@ -76,12 +76,12 @@ public class GUI extends JPanel {
         outTextField = new JTextArea(5, 5);
         typeList = factoryListItems;
         findByIdField = new JTextField(5);
-        findLabel = new JLabel("Поиск по индексу");
         delByIdField = new JTextField(5);
+        insertByIdField = new JTextField(5);
+        findLabel = new JLabel("Поиск по индексу");
         delLabel = new JLabel("Удалить по индексу");
         typeLabel = new JLabel("Тип данных");
         insertLabel = new JLabel("Вставка по индексу");
-        insertByIdField = new JTextField(5);
         createLabel = new JLabel("Сгенерировать данные");
         sortLabel = new JLabel("Сортировка");
 

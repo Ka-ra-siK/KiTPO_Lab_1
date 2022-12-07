@@ -35,8 +35,8 @@ public class PointUserType implements UserType {
     @Override
     public Object create() {
         Random random = new Random();
-        float x = random.nextFloat(MAX - MIN) + MIN;
-        float y = random.nextFloat(MAX - MIN) + MIN;
+        double x = random.nextDouble(MAX - MIN) + MIN;
+        double y = random.nextDouble(MAX - MIN) + MIN;
         PointType pointTypeValue = new PointType(x, y);
         return pointTypeValue;
     }
@@ -61,7 +61,7 @@ public class PointUserType implements UserType {
         Pattern patternString = Pattern.compile(REGULAR_EXPRESSION);
         Matcher matcher = patternString.matcher(pointString);
         if (matcher.find()) {
-            PointType pointType = new PointType(Float.valueOf(matcher.group(1)), Float.valueOf(matcher.group(2)));
+            PointType pointType = new PointType(Double.valueOf(matcher.group(1)), Double.valueOf(matcher.group(2)));
             return pointType;
         }
         return null;

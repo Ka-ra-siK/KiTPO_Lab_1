@@ -1,5 +1,7 @@
 package CycleList;
 
-public interface Iterator<T> {
-    void toDo(T data);
+import java.io.IOException;
+
+public interface Iterator {
+    void toDo(Object data) throws IOException;
 }

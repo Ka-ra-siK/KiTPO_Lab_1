@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
  * @see UserType#getTypeComparator() Получение экземпляра компаратора
  */
 public interface UserType{
+
     public String typeName();
     public Object create();
     public Object clone(Object object);
